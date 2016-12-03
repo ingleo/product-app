@@ -12,6 +12,7 @@ import {
   selector: 'page-pagelogin',
   templateUrl: 'pagelogin.html'
 })
+
 export class Pagelogin {
     email:string;
     password:string;
@@ -19,6 +20,8 @@ export class Pagelogin {
     constructor(public nav: NavController,  private formBuilder: FormBuilder) {
 
     }
- 
+login(){
+  
+} 
 }
  
