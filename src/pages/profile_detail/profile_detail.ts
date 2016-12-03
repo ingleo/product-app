@@ -23,6 +23,7 @@ export class profile_detail {
         });
   }
 
+
   ngOnInit():void{
       this.getUsers();
     }
