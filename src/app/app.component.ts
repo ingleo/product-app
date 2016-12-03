@@ -9,6 +9,8 @@ import { Pagelogin } from '../pages/pagelogin/pagelogin';
 @Component({
   templateUrl: 'app.html'
 })
+
+
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
