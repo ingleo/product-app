@@ -4,7 +4,7 @@ import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'page-page2',
-  templateUrl: 'page2.html'
+  templateUrl: 'profile_detail.html'
 })
 export class Page2 {
   selectedItem: any;
