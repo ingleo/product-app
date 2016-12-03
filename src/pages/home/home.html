@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>HOME</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list no-border>
+    <ion-item *ngFor="let product of products"
+              [class.pepito]="product === selected">
+      <button ion-button color="light" item-left (click)="onSelect(product.id)">
+        <ion-icon ios="ios-phone-portrait" md="md-phone-portrait"></ion-icon>
+      </button>
+      <span>{{product.id}}</span> {{product.name}}
+      <button ion-button color="dark"  item-right (click)="delete(product)">
+        <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
+      </button>
+    </ion-item>
+
+  </ion-list>
+</ion-content>
