@@ -3,6 +3,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { ProductService } from "../providers/product.service";
+import { UserService } from "../providers/user-service";
 
 import { Home } from '../pages/home/home';
 import { OptionsPage } from '../pages/options/options';
@@ -32,6 +33,6 @@ import { ModalLoginPage } from "../pages/login/login";
     ModalRegisterPage,
     ModalLoginPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},ProductService]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},ProductService,UserService]
 })
 export class AppModule {}

@@ -20,6 +20,15 @@ export class UserService {
 	        .catch(this.handleError);
 	}
 
+	create(user: User): Observable<User> {
+        return this.http
+            .post(this.usersURI + '/sign-up', 
+                  JSON.stringify(user), 
+                  { headers: this.headers })
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
 	update(user: User): Observable<User> {
 	    const url = `${this.usersURI}/update/${user.email}`;
 	    return this.http
