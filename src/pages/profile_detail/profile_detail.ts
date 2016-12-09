@@ -8,11 +8,20 @@ import { UserService } from '../../providers/user-service'
   templateUrl: 'profile_detail.html'
 })
 export class profile_detail {
-  users: User[];
+  //users: User[];
+
+  public user: User = {
+          id: 1,
+          email: "admin@admin.com",
+          password: "admin123456",
+          firstname: "admin",
+          lastname: "server",
+          phone: "1234566775"
+        };
   
   constructor(public navCtrl: NavController, private userService: UserService) {}
   
-  getUsers(){
+  /*getUsers(){
     this.userService.getUsers()
       .subscribe(
         users => {
@@ -21,11 +30,18 @@ export class profile_detail {
         error => {
           console.log(error);
         });
-  }
+  }*/
 
 
   ngOnInit():void{
-      this.getUsers();
+      this.userService.getUser(this.user)
+        .subscribe(
+        user => {
+          this.user = user;
+        },
+        error => {
+          console.log(error);
+        });
     }
 
   
