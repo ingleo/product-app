@@ -1,15 +1,27 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { Pagelogin } from '../pages/pagelogin/pagelogin';
+
+import { ProductService } from "../providers/product.service";
+import { UserService } from "../providers/user-service";
+
 import { Home } from '../pages/home/home';
-import {ProductService} from "../providers/product.service";
+import { OptionsPage } from '../pages/options/options';
+
+
+import { ModalRegisterPage } from "../pages/register/register";
+import { ModalLoginPage } from "../pages/login/login";
+
+import { ProfileDetail } from '../pages/profile_detail/profile_detail';
 
 @NgModule({
   declarations: [
     MyApp,
-    Pagelogin,
-    Home
+    Home,
+    OptionsPage,
+    ModalRegisterPage,
+    ModalLoginPage,
+    ProfileDetail
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -17,9 +29,12 @@ import {ProductService} from "../providers/product.service";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    Pagelogin,
-    Home
+    Home,
+    OptionsPage,
+    ModalRegisterPage,
+    ModalLoginPage,
+    ProfileDetail
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},ProductService]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, ProductService, UserService]
 })
-export class AppModule {}
+export class AppModule { }
