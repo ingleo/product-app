@@ -10,29 +10,37 @@ export class UserService {
 	private usersURI = 'http://138.68.0.83:7070/api/v1/user';
 	private headers = new Headers({ 'Content-Type': 'application/json' });
 
-  constructor(public http: Http) {
-    console.log('Hello UserService Provider');
-  }
+	constructor(public http: Http) {
+		console.log('Hello UserService Provider');
+	}
 
-  getUsers(): Observable<User[]> {
-        return this.http.get(this.usersURI + '/list')
-            .map(response => response.json() as User[])
+	getUsers(): Observable<User[]> {
+	    return this.http.get(this.usersURI + '/list')
+	        .map(response => response.json() as User[])
+	        .catch(this.handleError);
+	}
+
+	create(user: User): Observable<User> {
+        return this.http
+            .post(this.usersURI + '/sign-up', 
+                  JSON.stringify(user), 
+                  { headers: this.headers })
+            .map(res => res.json())
             .catch(this.handleError);
     }
+
+	update(user: User): Observable<User> {
+	    const url = `${this.usersURI}/update/${user.email}`;
+	    return this.http
+	        .put(url, JSON.stringify(user), {headers: this.headers})
+	        .map(res => res.json())
+	        .catch(this.handleError);
+	}
 
     getUser(user: User): Observable<User> {
 		const url = `${this.usersURI}/detail/${user.email}`;
         return this.http
             .get(url)
-            .map(res => res.json())
-            .catch(this.handleError);
-
-    }
-
-    update(user: User): Observable<User> {
-        const url = `${this.usersURI}/update/${user.email}`;
-        return this.http
-            .put(url, JSON.stringify(user), {headers: this.headers})
             .map(res => res.json())
             .catch(this.handleError);
     }
