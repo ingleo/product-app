@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+  Validator
+} from '@angular/forms';
+
 
 @Component({
   selector: 'page-login',
@@ -7,7 +15,10 @@ import { ViewController } from 'ionic-angular';
 })
 export class ModalLoginPage {
 
-  constructor(public viewCtrl: ViewController) {}
+	email : string;
+	password : string; 
+
+  constructor(public viewCtrl: ViewController,  private formBuilder: FormBuilder) {}
 
   ionViewDidLoad() {
     console.log('Hello LoginPage Page');
@@ -16,5 +27,9 @@ export class ModalLoginPage {
   dismiss() {
     this.viewCtrl.dismiss();
   }
+
+  login() {
+  
+  } 
 
 }
