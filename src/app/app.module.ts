@@ -12,7 +12,7 @@ import { OptionsPage } from '../pages/options/options';
 import { ModalRegisterPage } from "../pages/register/register";
 import { ModalLoginPage } from "../pages/login/login";
 
-
+import { ProfileDetail } from '../pages/profile_detail/profile_detail';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,8 @@ import { ModalLoginPage } from "../pages/login/login";
     Home,
     OptionsPage,
     ModalRegisterPage,
-    ModalLoginPage
+    ModalLoginPage,
+    ProfileDetail
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -31,8 +32,9 @@ import { ModalLoginPage } from "../pages/login/login";
     Home,
     OptionsPage,
     ModalRegisterPage,
-    ModalLoginPage
+    ModalLoginPage,
+    ProfileDetail
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},ProductService,UserService]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, ProductService, UserService]
 })
-export class AppModule {}
+export class AppModule { }

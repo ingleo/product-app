@@ -4,6 +4,7 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 
 
 import { Home } from '../pages/home/home';
+import { ProfileDetail } from '../pages/profile_detail/profile_detail';
 import { OptionsPage } from '../pages/options/options';
 
 
@@ -24,13 +25,8 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-<<<<<<< HEAD
-      { title: 'Page login', component: Pagelogin },
-      { title: 'Home', component: Home }
-=======
       { title: 'Home', component: Home },
-      { title: 'Options', component: OptionsPage }
->>>>>>> 8334b67f957ba8daf1feaac6e822cdcdf863f014
+      { title: 'Profile', component: ProfileDetail}
     ];
 
   }
@@ -48,5 +44,10 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  closeSession(){
+    //TODO implementación para cerrar sesión
+    alert('se cierrra la sesión');
   }
 }
