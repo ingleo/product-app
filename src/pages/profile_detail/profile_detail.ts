@@ -5,6 +5,8 @@ import { UserService } from '../../providers/user-service'
 import { AlertController } from 'ionic-angular';
 import { EditProfilePage } from '../edit_profile/edit_profile';
 import { Home } from '../home/home';
+import { OptionsPage } from '../options/options';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-page2',
@@ -14,7 +16,17 @@ import { Home } from '../home/home';
 export class ProfileDetail {
 
   //users: User[];
-
+  private userSigned : any = { email: '', cookie: ''};
+  private user: User = {
+          id: 0,
+          email: "",
+          password: "",
+          firstname: "",
+          lastname: "",
+          phone: "",
+          cookie: ""
+        };
+  /*
   public user: User = {
           id: 1,
           email: "doggie@gmail.com",
@@ -24,18 +36,41 @@ export class ProfileDetail {
           phone: "1111111",
           cookie: "2020202020202"
         };
-  
-  constructor(public navCtrl: NavController, private userService: UserService, public alertCtrl: AlertController) {}
+  */
+  constructor(
+    public navCtrl: NavController,
+    private userService: UserService, 
+    public alertCtrl: AlertController,
+    public storage: Storage) {}
   
   ngOnInit():void{
-      this.userService.getUser(this.user)
-        .subscribe(
-        user => {
-          this.user = user;
-        },
-        error => {
-          console.log(error);
-        });
+      this.storage.get("userSigned").then(res =>{
+        console.log(res);
+        if (res != null)
+        {
+            this.userSigned.email = res['email'] == null ? '' : res['email']; 
+            this.userSigned.cookie = res['cookie'] == null ? '' : res['cookie'];
+            this.user.email = this.userSigned.email;
+            this.userService.getUser(this.user)
+            .subscribe(
+            user => {
+              
+              this.user = user;
+            },
+            error => {
+              console.log(error);
+            });
+
+
+        } else 
+        {
+            console.log('redireccionando a options')
+            this.navCtrl.push(OptionsPage);
+
+        }
+
+      })
+
     }
 
 
@@ -77,7 +112,7 @@ export class ProfileDetail {
         {
           text: 'Si',
           handler: () => {
-            this.userService.remove(this.user).subscribe(res => {
+            this.userService.remove(this.userSigned).subscribe(res => {
               console.log('se ha borrado el usuario');
               this.navCtrl.push(Home);
             });
