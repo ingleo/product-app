@@ -46,6 +46,7 @@ export class UserService {
     }
 
     remove(user: User): Observable<any> {
+        alert('entra a metodo remove' + user.email);
         const url = `${this.usersURI}/delete/${user.email}`;
         //const url = `${this.usersURI}/delete/131`;
         return this.http

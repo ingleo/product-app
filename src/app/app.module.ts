@@ -13,6 +13,7 @@ import { ModalRegisterPage } from "../pages/register/register";
 import { ModalLoginPage } from "../pages/login/login";
 
 import { ProfileDetail } from '../pages/profile_detail/profile_detail';
+import { EditProfilePage } from '../pages/edit_profile/edit_profile';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ProfileDetail } from '../pages/profile_detail/profile_detail';
     OptionsPage,
     ModalRegisterPage,
     ModalLoginPage,
-    ProfileDetail
+    ProfileDetail,
+    EditProfilePage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -33,7 +35,8 @@ import { ProfileDetail } from '../pages/profile_detail/profile_detail';
     OptionsPage,
     ModalRegisterPage,
     ModalLoginPage,
-    ProfileDetail
+    ProfileDetail,
+    EditProfilePage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, ProductService, UserService]
 })

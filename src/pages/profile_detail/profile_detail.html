@@ -23,7 +23,7 @@
     <ion-card-content>{{user.phone}}</ion-card-content>
   </ion-card>
 
-  <button ion-button full>Editar</button>
+  <button ion-button full (click)="editProfile()">Editar perfil</button>
   <button ion-button full (click)="showConfirm()">Cerrar sesión</button>
   <button ion-button full color="danger" (click)="showConfirm2()">Eliminar Usuario</button>
   
