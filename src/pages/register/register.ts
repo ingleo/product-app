@@ -36,7 +36,7 @@ export class ModalRegisterPage {
 	        this.userNew.cookie = user.cookie;
 	        console.log(this.userNew.cookie);
 
-          this.userdbService.create(this.userNew);
+          //this.userdbService.create(this.userNew);
 
           this.userSigned.email = this.userNew.email;
           this.userSigned.cookie = this.userNew.cookie;
