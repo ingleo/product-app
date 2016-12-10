@@ -48,8 +48,6 @@ export class CreateProductPage {
     this.product.latitude = this.lat;
     this.product.longitude = this.lng;
 
-    alert(this.product.name+'_'+this.product.type+'_'+this.product.quantity+this.product.price+'_'+this.product.latitude+this.product.longitude);
-
     this.productService.create(this.product)
       .subscribe(product => {
         console.log('product created');
@@ -62,8 +60,7 @@ export class CreateProductPage {
     Geolocation.getCurrentPosition({enableHighAccuracy: true, maximumAge: 3000, timeout: 5000}).then(resp => {
       this.lat = resp.coords.latitude;
       this.lng = resp.coords.longitude;
-
-      alert(this.lat+' _ '+this.lng);
+      
     }).catch((error) => {
       console.log('Error getting location', error);
     });
