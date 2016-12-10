@@ -38,7 +38,7 @@ export class UserService {
 	}
 
     getUser(user: User): Observable<User> {
-		const url = `${this.usersURI}/detail/${user.email}`;
+		const url = `${this.usersURI}/profile/${user.email}`;
         return this.http
             .get(url)
             .map(res => res.json())

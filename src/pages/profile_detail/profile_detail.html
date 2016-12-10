@@ -8,16 +8,24 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
-      </div>
-    </button>
-  </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
+  <ion-card>
+    <ion-card-header>Nombres</ion-card-header>
+    <ion-card-content>{{user.firstname}} {{user.lastname}}</ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>E-mail</ion-card-header>
+    <ion-card-content>{{user.email}}</ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>Teléfono</ion-card-header>
+    <ion-card-content>{{user.phone}}</ion-card-content>
+  </ion-card>
+
+  <button ion-button full>Editar</button>
+  <button ion-button full (click)="showConfirm()">Cerrar sesión</button>
+  <button ion-button full color="danger" (click)="showConfirm2()">Eliminar Usuario</button>
+  
+  
 </ion-content>
