@@ -5,6 +5,7 @@ import { User } from '../../model/user';
 import { UserService } from "../../providers/user-service";
 import { UserDbService } from "../../providers/userdb.service";
 
+import { OptionsPage } from '../options/options';
 import { Home } from '../home/home';
 
 import { Storage } from '@ionic/storage';
@@ -42,8 +43,8 @@ export class ModalRegisterPage {
           this.userSigned.cookie = this.userNew.cookie;
 
           this.storage.set("userSigned", this.userSigned);
-
-          this.navCtrl.push(Home);
+          
+           this.navCtrl.push(Home);
 	    });
   }
 

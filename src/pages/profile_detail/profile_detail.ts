@@ -17,7 +17,7 @@ export class ProfileDetail {
 
   //users: User[];
   private userSigned : any = { email: '', cookie: ''};
-  private user: User = {
+  user: User = {
           id: 0,
           email: "",
           password: "",
