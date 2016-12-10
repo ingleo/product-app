@@ -54,6 +54,13 @@ export class Home {
     this.getProducts();
   }
 
+  delete(product: Product): void {
+    this.productService.deleteProduct(product)
+      .subscribe(
+        response => {console.log(response);this.getProducts()},
+        err => { console.log(err)});
+  }
+
   getProducts() {
     this.productService.getProducts()
       .subscribe(

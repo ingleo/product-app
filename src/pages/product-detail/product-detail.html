@@ -16,19 +16,32 @@
 <ion-content padding>
 
   <div *ngIf="productArray">
-    <hr />
-    <label>Name: </label><br />
-    <input [(ngModel)]="productArray.name" placeholder="name"><br />
-    <label>Description: </label><br />
-    <textarea [(ngModel)]="productArray.description" placeholder="description"></textarea><br />
-    <label>Type: </label><br />
-    <input [(ngModel)]="productArray.type" placeholder="tipo"><br />
-    <label>Price: </label><br />
-    <input [(ngModel)]="productArray.price" placeholder="precio"><br />
-    <label>Quantity: </label><br />
-    <input [(ngModel)]="productArray.quantity" placeholder="cantidad"><br />
-    <button (click)="save(productArray)">Save</button>
-    <button (click)="delete(productArray)">Delete</button>
+
+
+    <form [formGroup]="productForm" (ngSubmit)="save(productArray)" novalidate>
+      <ion-list>
+        <ion-item>
+          <ion-label>Name:</ion-label>
+          <ion-input formControlName="name" [(ngModel)]="productArray.name" type="text" ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Type:</ion-label>
+          <ion-input formControlName="type" [(ngModel)]="productArray.type" type="text" ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Quantity:</ion-label>
+          <ion-input formControlName="quantity" [(ngModel)]="productArray.quantity" type="text" ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Price:</ion-label>
+          <ion-input formControlName="price" [(ngModel)]="productArray.price" type="text" ></ion-input>
+        </ion-item>
+      </ion-list>
+      <div padding>
+        <button ion-button block type="submit" [disabled]="!productForm.valid">Save</button>
+      </div>
+    </form>
+
   </div>
 
 </ion-content>
