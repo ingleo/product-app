@@ -4,6 +4,7 @@ import { MyApp } from './app.component';
 
 import { ProductService } from "../providers/product.service";
 import { UserService } from "../providers/user-service";
+import { UserDbService } from "../providers/userdb.service";
 
 import { Home } from '../pages/home/home';
 import { OptionsPage } from '../pages/options/options';
@@ -16,6 +17,7 @@ import { ModalLoginPage } from "../pages/login/login";
 import { ProfileDetail } from '../pages/profile_detail/profile_detail';
 
 import { CreateProductPage } from '../pages/create-product/create-product';
+import { Storage } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,10 @@ import { CreateProductPage } from '../pages/create-product/create-product';
     ProfileDetail,
     CreateProductPage
   ],
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, ProductService, UserService]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, 
+  ProductService, 
+  UserService,
+  UserDbService,
+  Storage]
 })
 export class AppModule { }
