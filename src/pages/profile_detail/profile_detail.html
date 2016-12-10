@@ -8,18 +8,24 @@
 </ion-header>
 
 <ion-content>
-  <ion-list no-border>
-    <ion-icon name='planet' item-left></ion-icon>
-    {{User.firtname}}
-  </ion-list>
-  <ion-note item-right>
-    {{user.lastname}}
-  </ion-note>
-  <ion-note item-right>
-    {{user.email}}
-  </ion-note>
-  <ion-note item-right>
-    {{user.phone}}
-  </ion-note>
+  <ion-card>
+    <ion-card-header>Nombres</ion-card-header>
+    <ion-card-content>{{user.firstname}} {{user.lastname}}</ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>E-mail</ion-card-header>
+    <ion-card-content>{{user.email}}</ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>Teléfono</ion-card-header>
+    <ion-card-content>{{user.phone}}</ion-card-content>
+  </ion-card>
+
+  <button ion-button full>Editar</button>
+  <button ion-button full (click)="showConfirm()">Cerrar sesión</button>
+  <button ion-button full color="danger" (click)="showConfirm2()">Eliminar Usuario</button>
+  
   
 </ion-content>

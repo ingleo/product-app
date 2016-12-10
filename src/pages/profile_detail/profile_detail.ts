@@ -2,37 +2,29 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { User } from '../../model/user'
 import { UserService } from '../../providers/user-service'
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-page2',
   templateUrl: 'profile_detail.html'
 })
-export class profile_detail {
+
+export class ProfileDetail {
+
   //users: User[];
 
   public user: User = {
           id: 1,
-          email: "admin@admin.com",
+          email: "j.isaac@yahoo.com",
           password: "admin123456",
-          firstname: "admin",
-          lastname: "server",
-          phone: "1234566775"
+          firstname: "aaaaaaaaaa",
+          lastname: "bbbbbbbbbbbbbb",
+          phone: "1111111",
+          cookie: "2020202020202"
         };
   
-  constructor(public navCtrl: NavController, private userService: UserService) {}
+  constructor(public navCtrl: NavController, private userService: UserService, public alertCtrl: AlertController) {}
   
-  /*getUsers(){
-    this.userService.getUsers()
-      .subscribe(
-        users => {
-          this.users = users;
-        },
-        error => {
-          console.log(error);
-        });
-  }*/
-
-
   ngOnInit():void{
       this.userService.getUser(this.user)
         .subscribe(
@@ -44,5 +36,51 @@ export class profile_detail {
         });
     }
 
+
+    /************Cerrar Sesion:***************/
+    showConfirm() {
+    let confirm = this.alertCtrl.create({
+      title: 'Cerrar sesión',
+      message: '¿Desea cerrar sesión?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Si',
+          handler: () => {
+            console.log('Agree clicked');
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  /************Eliminar Usuario:***************/
+    showConfirm2() {
+    let confirm = this.alertCtrl.create({
+      title: 'Eliminar',
+      message: '¿Desea Borrar su usuario?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Si',
+          handler: () => {
+            console.log('Agree clicked');
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
   
 }
