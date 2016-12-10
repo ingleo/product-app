@@ -53,14 +53,12 @@ export class ProductService {
             .catch(this.handleError);
     }
 
-    create(name: string, type: string, quantity: number, price: number): Observable<Product> {
-
-        let toAdd = {"name": name, "type": type, "quantity": quantity, "price": price};
+    create(product: Product): Observable<Product> {
 
         //console.log(typeof toAdd);
 
         return this.http
-            .post(this.productsURI+'create', toAdd, {headers: this.headers})
+            .post(this.productsURI+'create', JSON.stringify(product), {headers: this.headers})
             .map(res => res.json())
             .catch(this.handleError);
     }
