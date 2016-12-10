@@ -54,6 +54,8 @@ export class CreateProductPage {
       .subscribe(product => {
         console.log('product created');
       });
+
+    this.navCtrl.pop();
   }
 
   ngOnInit(){

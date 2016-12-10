@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Product } from '../../model/product';
 import { ProductService } from "../../providers/product.service";
 import { ProductDetailPage } from '../product-detail/product-detail';
+import { CreateProductPage } from '../create-product/create-product';
 
 import { OptionsPage } from '../options/options';
 import { Storage } from '@ionic/storage';
@@ -17,13 +18,14 @@ export class Home {
 
 
   products: Product[];
+  createProductPage = CreateProductPage;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private productService: ProductService,
               public storage: Storage) 
   {
-    this.getProducts();
+
   }
 
   ngOnInit()
@@ -46,25 +48,36 @@ export class Home {
       }).catch((error) => {
         console.log('Error getting user signed', error);
       });
+  }
 
-
+  ionViewWillEnter() {
+    this.getProducts();
   }
 
   getProducts() {
     this.productService.getProducts()
       .subscribe(
-        products => {
-          this.products = products;
-        },
+      products => {
+        this.products = products;
+      },
 
-        error => {
-          console.log(error);
-        }
+      error => {
+        console.log(error);
+      }
       );
   }
 
-  onSelect(id: number){
-    this.navCtrl.push(ProductDetailPage,{p:id});
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+    setTimeout(() => {
+      this.getProducts();
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
+  }
+
+  onSelect(id: number) {
+    this.navCtrl.push(ProductDetailPage, { p: id });
   }
 
 
