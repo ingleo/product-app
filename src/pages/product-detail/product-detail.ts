@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { Product } from '../../model/product';
 import { NavParams } from 'ionic-angular';
 import {ProductService} from "../../providers/product.service";
+import { NavController } from 'ionic-angular';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Home } from '../home/home';
 /*
  Generated class for the ProductDetail page.
 
@@ -17,13 +20,15 @@ export class ProductDetailPage {
   productArray: Product[];
   product: Product;
   id : number;
-
+  productForm: FormGroup;
 
 
   constructor(public navParams: NavParams,
-              private productService: ProductService) {
+              private productService: ProductService,
+              public navCtrl: NavController, public formBuilder: FormBuilder) {
     this.id = navParams.get('p');
     this.getProductDetail(this.id);
+    this.productForm = this.createProductForm();
 
   }
 
@@ -38,17 +43,20 @@ export class ProductDetailPage {
   save(product: Product): void {
     this.productService.update(product)
       .subscribe(
-        response => {console.log(response)},
+        response => {console.log(response)
+          this.navCtrl.push(Home);},
         err => { console.log(err)});
   }
 
-  delete(product: Product): void {
-    this.productService.deleteProduct(product)
-      .subscribe(
-        response => {console.log(response);},
-        err => { console.log(err)});
 
 
+  private createProductForm(){
+    return this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      type: ['', [Validators.required, Validators.minLength(5)]],
+      quantity: ['', [Validators.required, Validators.minLength(5)]],
+      price: ['', [Validators.required, Validators.minLength(4)]],
+    });
   }
 
   ionViewDidLoad() {
