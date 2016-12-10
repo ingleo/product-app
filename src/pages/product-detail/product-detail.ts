@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Product } from '../../model/product';
 import { NavParams } from 'ionic-angular';
 import {ProductService} from "../../providers/product.service";
-import { NavController } from 'ionic-angular';
+import { NavController,AlertController } from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Home } from '../home/home';
 /*
@@ -25,7 +25,9 @@ export class ProductDetailPage {
 
   constructor(public navParams: NavParams,
               private productService: ProductService,
-              public navCtrl: NavController, public formBuilder: FormBuilder) {
+              public navCtrl: NavController,
+              public formBuilder: FormBuilder,
+              private alertCtrl: AlertController) {
     this.id = navParams.get('p');
     this.getProductDetail(this.id);
     this.productForm = this.createProductForm();
@@ -40,12 +42,41 @@ export class ProductDetailPage {
     //console.log(typeof this.product);
   }
 
+  /*
   save(product: Product): void {
     this.productService.update(product)
       .subscribe(
         response => {console.log(response)
           this.navCtrl.push(Home);},
         err => { console.log(err)});
+  }
+  */
+
+  save(product: Product): void {
+    let alert = this.alertCtrl.create({
+      title: 'Cambio de informacion',
+      message: 'Confirma el Cambio del Producto '+product.name,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Click en cancelar');
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.productService.update(product)
+              .subscribe(
+                response => {console.log(response)
+                  this.navCtrl.push(Home);},
+                err => { console.log(err)});
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 

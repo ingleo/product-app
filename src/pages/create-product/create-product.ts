@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Geolocation } from 'ionic-native';
 import { Product } from '../../model/product';
@@ -31,7 +31,10 @@ export class CreateProductPage {
 }
 
 
-  constructor(public navCtrl: NavController, public formBuilder: FormBuilder, private productService: ProductService) {
+  constructor(public navCtrl: NavController,
+              public formBuilder: FormBuilder,
+              private productService: ProductService,
+              private alertCtrl: AlertController) {
     this.productForm = this.createProductForm();
   }
 
@@ -39,6 +42,7 @@ export class CreateProductPage {
     console.log('Hello CreateProductPage Page');
   }
 
+/*
   saveProduct(){
     console.log(this.productForm.value);
     this.product.name = this.productForm.value.name;
@@ -56,6 +60,43 @@ export class CreateProductPage {
       });
 
     this.navCtrl.pop();
+  }
+  */
+
+  saveProduct(){
+    let alert = this.alertCtrl.create({
+      title: 'Creando Producto',
+      message: 'Confirma Creacion del Producto '+this.productForm.value.name,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Click en cancelar');
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            console.log(this.productForm.value);
+            this.product.name = this.productForm.value.name;
+            this.product.type = this.productForm.value.type;
+            this.product.quantity = this.productForm.value.quantity;
+            this.product.price = this.productForm.value.price;
+            this.product.latitude = this.lat;
+            this.product.longitude = this.lng;
+
+            this.productService.create(this.product)
+              .subscribe(product => {
+                console.log('product created');
+              });
+
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   ngOnInit(){
