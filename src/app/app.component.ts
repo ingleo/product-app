@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform} from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
-
+import { Storage } from '@ionic/storage';
 
 import { Home } from '../pages/home/home';
 import { ProfileDetail } from '../pages/profile_detail/profile_detail';
@@ -21,7 +21,10 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform) {
+  pageHome = [{ title: 'Home', component: Home }];
+
+  constructor(public platform: Platform,
+              public storage: Storage) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -48,7 +51,11 @@ export class MyApp {
   }
 
   closeSession(){
+    this.storage.set("cookie", null);
+    this.storage.set("email", null);
+    this.storage.set("userSigned", null);
+    //this.openPage(this.pageHome);
     //TODO implementación para cerrar sesión
-    alert('se cierrra la sesión');
+   // alert('se cierrra la sesión');
   }
 }

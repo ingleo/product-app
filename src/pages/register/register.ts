@@ -42,7 +42,7 @@ export class ModalRegisterPage {
           this.userSigned.cookie = this.userNew.cookie;
 
           this.storage.set("userSigned", this.userSigned);
-
+          this.dismiss();
           this.navCtrl.push(Home);
 	    });
   }
