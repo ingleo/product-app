@@ -15,6 +15,7 @@ import { ModalRegisterPage } from "../pages/register/register";
 import { ModalLoginPage } from "../pages/login/login";
 
 import { ProfileDetail } from '../pages/profile_detail/profile_detail';
+import { EditProfilePage } from '../pages/edit_profile/edit_profile';
 
 import { CreateProductPage } from '../pages/create-product/create-product';
 import { Storage } from '@ionic/storage';
@@ -28,6 +29,7 @@ import { Storage } from '@ionic/storage';
     ModalRegisterPage,
     ModalLoginPage,
     ProfileDetail,
+    EditProfilePage,
     CreateProductPage
   ],
   imports: [
@@ -42,6 +44,7 @@ import { Storage } from '@ionic/storage';
     ModalRegisterPage,
     ModalLoginPage,
     ProfileDetail,
+    EditProfilePage,
     CreateProductPage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, 
