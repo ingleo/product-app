@@ -20,6 +20,15 @@ export class UserService {
 	        .catch(this.handleError);
 	}
 
+    sigin(email: string, pass: string): Observable<User> {
+        return this.http
+            .post(this.usersURI + '/sign-in', 
+                  JSON.stringify({ email: email, password: pass }), 
+                  { headers: this.headers })
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
 	create(user: User): Observable<User> {
         return this.http
             .post(this.usersURI + '/sign-up', 

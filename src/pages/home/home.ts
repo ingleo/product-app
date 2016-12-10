@@ -23,32 +23,48 @@ export class Home {
               private productService: ProductService,
               public storage: Storage) 
   {
+    //setTimeout(this.getCookieSession(), 2000);
+
+    this.getCookieSession();
+
+    console.log('constructor');
     this.getProducts();
   }
 
   ngOnInit()
   {
     console.log('inicio')
-      this.storage.get("userSigned").then(res => {
-        console.log(res);
 
-        if (res != null)
-        {
-            this.userSigned.email = res['email'] == null ? '' : res['email']; 
-            this.userSigned.cookie = res['cookie'] == null ? '' : res['cookie'];
-        } else 
-        {
-            console.log('redireccionando a options')
-            this.navCtrl.push(OptionsPage);
+    
 
-        }
+    
+  }
 
-      }).catch((error) => {
-        console.log('Error getting user signed', error);
-      });
+  getCookieSession()
+  {
+    this.storage.get("userSigned").then(res => {
 
+     
+          console.log(res);
+
+          if (res != null)
+          {
+              this.userSigned.email = res['email'] == null ? '' : res['email']; 
+              this.userSigned.cookie = res['cookie'] == null ? '' : res['cookie'];
+          } else 
+          {
+              console.log('redireccionando a options')
+              this.navCtrl.push(OptionsPage);
+
+          }
+     
+
+    }).catch((error) => {
+      console.log('Error getting user signed', error);
+    });
 
   }
+
 
   getProducts() {
     this.productService.getProducts()
