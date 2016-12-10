@@ -17,11 +17,43 @@
 
 <ion-content padding>
 
-<div *ngIf="userNew">
+<form [formGroup]="userForm" (ngSubmit)="presentConfirm()" novalidate>
+
+  <ion-list> 
+      <ion-item>
+        <ion-label stacked>email:</ion-label>
+        <ion-input [(ngModel)]="userNew.email" formControlName="email" type="email" placeholder="email"  ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>password:</ion-label>
+        <ion-input [(ngModel)]="userNew.password" formControlName="password" type="password" placeholder="password"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Nombre:</ion-label>
+        <ion-input [(ngModel)]="userNew.firstname" formControlName="firstname" type="text" placeholder="firstname"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Apellido:</ion-label>
+        <ion-input [(ngModel)]="userNew.lastname" formControlName="lastname" type="text" placeholder="lastname"></ion-input>
+      </ion-item>
+     
+      <ion-item>
+        <ion-label stacked>Phone:</ion-label>
+        <ion-input [(ngModel)]="userNew.phone" formControlName="phone" type="text" placeholder="phone"></ion-input>
+      </ion-item>
+
+  </ion-list>
+
+  <div padding>
+    <button ion-button block type="submit" [disabled]="!userForm.valid">Guardar</button>
+  </div>
+
+
+<!--<div *ngIf="userNew" >
     <label>Email: </label><br />
-    <input [(ngModel)]="userNew.email" placeholder="email"><br />
+    <input [(ngModel)]="userNew.email" type="email" placeholder="email"><br />
     <label>Password: </label><br />
-    <input [(ngModel)]="userNew.password" placeholder="password"><br />
+    <input [(ngModel)]="userNew.password" type="password" placeholder="password"><br />
     <label>Nombre: </label><br />
     <input [(ngModel)]="userNew.firstname" placeholder="firstname"><br />
     <label>Apellido: </label><br />
@@ -31,8 +63,8 @@
     <button ion-button (click)="presentConfirm()" color="light" block>
       Registrar
     </button>
-</div>
+</div>-->
 
-  
+</form>
 
 </ion-content>

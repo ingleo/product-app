@@ -8,6 +8,7 @@ import { CreateProductPage } from '../create-product/create-product';
 import { OptionsPage } from '../options/options';
 import { Storage } from '@ionic/storage';
 
+
 @Component({
   selector: 'page-page2',
   templateUrl: 'home.html'
@@ -59,7 +60,40 @@ export class Home {
       .subscribe(
         response => {console.log(response);this.getProducts()},
         err => { console.log(err)});
+    //setTimeout(this.getCookieSession(), 2000);
+
+    this.getCookieSession();
+
+    console.log('constructor');
+    this.getProducts();
   }
+
+
+  getCookieSession()
+  {
+    this.storage.get("userSigned").then(res => {
+
+     
+          console.log(res);
+
+          if (res != null)
+          {
+              this.userSigned.email = res['email'] == null ? '' : res['email']; 
+              this.userSigned.cookie = res['cookie'] == null ? '' : res['cookie'];
+          } else 
+          {
+              console.log('redireccionando a options')
+              this.navCtrl.push(OptionsPage);
+
+          }
+     
+
+    }).catch((error) => {
+      console.log('Error getting user signed', error);
+    });
+
+  }
+
 
   getProducts() {
     this.productService.getProducts()

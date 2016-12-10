@@ -17,23 +17,26 @@
 
 <ion-content padding>
 
+<form [formGroup]="userForm" (ngSubmit)="login()" novalidate>
 
-	<ion-list>
+  <ion-list> 
 
-	  <ion-item>
-	    <ion-label floating>email</ion-label>
-	    <ion-input [(ngModel)]="email" type="email" value=""></ion-input>
-	  </ion-item>
+      <ion-item>
+        <ion-label stacked>email:</ion-label>
+        <ion-input [(ngModel)]="email" formControlName="email" type="email" placeholder="email"  ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>password:</ion-label>
+        <ion-input [(ngModel)]="password" formControlName="password" type="password" placeholder="password"></ion-input>
+      </ion-item>
 
-	  <ion-item>
-	    <ion-label floating>Password</ion-label>
-	    <ion-input [(ngModel)]="password"  type="password" value=""></ion-input>
-	  </ion-item>
+  </ion-list>
 
-	</ion-list>
+  <div padding>
+    <button ion-button block type="submit" [disabled]="!userForm.valid">Sign In</button>
+  </div>
 
-	<div padding>
-	  <button primary block  (click)="login()">Sign In</button>
-	</div>
+
+</form>
 
 </ion-content>
