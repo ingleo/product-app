@@ -4,9 +4,11 @@ import { MyApp } from './app.component';
 
 import { ProductService } from "../providers/product.service";
 import { UserService } from "../providers/user-service";
+import { UserDbService } from "../providers/userdb.service";
 
 import { Home } from '../pages/home/home';
 import { OptionsPage } from '../pages/options/options';
+import { ProductDetailPage } from '../pages/product-detail/product-detail';
 
 
 import { ModalRegisterPage } from "../pages/register/register";
@@ -15,15 +17,20 @@ import { ModalLoginPage } from "../pages/login/login";
 import { ProfileDetail } from '../pages/profile_detail/profile_detail';
 import { EditProfilePage } from '../pages/edit_profile/edit_profile';
 
+import { CreateProductPage } from '../pages/create-product/create-product';
+import { Storage } from '@ionic/storage';
+
 @NgModule({
   declarations: [
     MyApp,
     Home,
     OptionsPage,
+    ProductDetailPage,
     ModalRegisterPage,
     ModalLoginPage,
     ProfileDetail,
-    EditProfilePage
+    EditProfilePage,
+    CreateProductPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -33,11 +40,17 @@ import { EditProfilePage } from '../pages/edit_profile/edit_profile';
     MyApp,
     Home,
     OptionsPage,
+    ProductDetailPage,
     ModalRegisterPage,
     ModalLoginPage,
     ProfileDetail,
-    EditProfilePage
+    EditProfilePage,
+    CreateProductPage
   ],
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, ProductService, UserService]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, 
+  ProductService, 
+  UserService,
+  UserDbService,
+  Storage]
 })
 export class AppModule { }

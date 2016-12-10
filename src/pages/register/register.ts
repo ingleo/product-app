@@ -1,8 +1,14 @@
 import { Component } from '@angular/core';
-import { ViewController, AlertController } from 'ionic-angular';
+import { ViewController, NavController, AlertController } from 'ionic-angular';
 
 import { User } from '../../model/user';
 import { UserService } from "../../providers/user-service";
+import { UserDbService } from "../../providers/userdb.service";
+
+import { Home } from '../home/home';
+
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'page-register',
@@ -10,21 +16,34 @@ import { UserService } from "../../providers/user-service";
 })
 export class ModalRegisterPage {
 
+  private userSigned : any = { email: '', cookie: ''};
   userNew = new User();
 
   constructor(public viewCtrl: ViewController
   	, private userService: UserService
-  	, private alertCtrl: AlertController) {}
+    , private userdbService: UserDbService
+  	, private alertCtrl: AlertController
+    , public storage: Storage
+    , public navCtrl: NavController) {}
 
   ionViewDidLoad() {
     console.log('Hello RegisterPage Page');
   }
 
   add(): void {
-	this.userService.create(this.userNew)
+	  this.userService.create(this.userNew)
 	    .subscribe(user => {
 	        this.userNew.cookie = user.cookie;
 	        console.log(this.userNew.cookie);
+
+          //this.userdbService.create(this.userNew);
+
+          this.userSigned.email = this.userNew.email;
+          this.userSigned.cookie = this.userNew.cookie;
+
+          this.storage.set("userSigned", this.userSigned);
+
+          this.navCtrl.push(Home);
 	    });
   }
 
