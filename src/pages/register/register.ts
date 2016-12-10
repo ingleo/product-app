@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ViewController, NavController, AlertController } from 'ionic-angular';
-
 import { User } from '../../model/user';
 import { UserService } from "../../providers/user-service";
 import { UserDbService } from "../../providers/userdb.service";
-
+import { OptionsPage } from '../options/options';
+import { CustomValidators } from '../../validators/custom-validator';
 import { Home } from '../home/home';
 
 import { Storage } from '@ionic/storage';
@@ -17,6 +18,8 @@ import { Storage } from '@ionic/storage';
 export class ModalRegisterPage {
 
   private userSigned : any = { email: '', cookie: ''};
+
+  userForm: FormGroup;
   userNew = new User();
 
   constructor(public viewCtrl: ViewController
@@ -24,7 +27,12 @@ export class ModalRegisterPage {
     , private userdbService: UserDbService
   	, private alertCtrl: AlertController
     , public storage: Storage
-    , public navCtrl: NavController) {}
+    , public navCtrl: NavController
+    , public formBuilder: FormBuilder)
+  {
+    this.userForm = this.createUserForm();
+  }
+
 
   ionViewDidLoad() {
     console.log('Hello RegisterPage Page');
@@ -42,7 +50,7 @@ export class ModalRegisterPage {
           this.userSigned.cookie = this.userNew.cookie;
 
           this.storage.set("userSigned", this.userSigned);
-          this.dismiss();
+
           this.navCtrl.push(Home);
 	    });
   }
@@ -70,6 +78,17 @@ export class ModalRegisterPage {
       ]
     });
     alert.present();
+  }
+
+
+  private createUserForm() {
+    return this.formBuilder.group({
+      email: ['', [Validators.required, Validators.minLength(6)/*, CustomValidators.emailValidator*/]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      firstname: ['', [Validators.required, Validators.minLength(3)]],
+      lastname: ['', [Validators.required, Validators.minLength(3)]],
+      phone: ['', [Validators.required, Validators.minLength(10)]],
+    });
   }
 
   dismiss() {

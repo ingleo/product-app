@@ -35,7 +35,7 @@
       </ion-item>
     </ion-list>
     <div padding>
-      <button ion-button block type="submit">Save</button>
+      <button ion-button block type="submit" [disabled]="!productForm.valid">Save</button>
     </div>
   </form>
 </ion-content>

@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { Home } from '../pages/home/home';
 import { ProfileDetail } from '../pages/profile_detail/profile_detail';
 import { OptionsPage } from '../pages/options/options';
+import { EditProfilePage } from '../pages/edit_profile/edit_profile';
 import { CreateProductPage } from '../pages/create-product/create-product';
 
 
