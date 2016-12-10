@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Product } from '../../model/product';
 import {ProductService} from "../../providers/product.service";
+import { ProductDetailPage } from '../product-detail/product-detail';
 
 @Component({
   selector: 'page-page2',
@@ -30,6 +31,10 @@ export class Home {
           console.log(error);
         }
       );
+  }
+
+  onSelect(id: number){
+    this.navCtrl.push(ProductDetailPage,{p:id});
   }
 
 

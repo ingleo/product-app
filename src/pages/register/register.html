@@ -1,0 +1,38 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-title>
+      Register
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+<div *ngIf="userNew">
+    <label>Email: </label><br />
+    <input [(ngModel)]="userNew.email" placeholder="email"><br />
+    <label>Password: </label><br />
+    <input [(ngModel)]="userNew.password" placeholder="password"><br />
+    <label>Nombre: </label><br />
+    <input [(ngModel)]="userNew.firstname" placeholder="firstname"><br />
+    <label>Apellido: </label><br />
+    <input [(ngModel)]="userNew.lastname" placeholder="lastname"><br />
+    <label>Phone: </label><br />
+    <input [(ngModel)]="userNew.phone" placeholder="phone"><br />
+    <button ion-button (click)="presentConfirm()" color="light" block>
+      Registrar
+    </button>
+</div>
+
+  
+
+</ion-content>
