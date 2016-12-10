@@ -83,10 +83,10 @@ export class ProductDetailPage {
 
   private createProductForm(){
     return this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
-      type: ['', [Validators.required, Validators.minLength(5)]],
-      quantity: ['', [Validators.required, Validators.minLength(5)]],
-      price: ['', [Validators.required, Validators.minLength(4)]],
+      name: ['', [Validators.required, Validators.minLength(4)]],
+      type: ['', [Validators.required, Validators.minLength(6)]],
+      quantity: ['', [Validators.required, Validators.minLength(1)]],
+      price: ['', [Validators.required, Validators.minLength(5)]],
     });
   }
 
