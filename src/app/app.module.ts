@@ -7,6 +7,7 @@ import { UserService } from "../providers/user-service";
 
 import { Home } from '../pages/home/home';
 import { OptionsPage } from '../pages/options/options';
+import { ProductDetailPage } from '../pages/product-detail/product-detail';
 
 
 import { ModalRegisterPage } from "../pages/register/register";
@@ -19,6 +20,7 @@ import { ProfileDetail } from '../pages/profile_detail/profile_detail';
     MyApp,
     Home,
     OptionsPage,
+    ProductDetailPage,
     ModalRegisterPage,
     ModalLoginPage,
     ProfileDetail
@@ -31,6 +33,7 @@ import { ProfileDetail } from '../pages/profile_detail/profile_detail';
     MyApp,
     Home,
     OptionsPage,
+    ProductDetailPage,
     ModalRegisterPage,
     ModalLoginPage,
     ProfileDetail
