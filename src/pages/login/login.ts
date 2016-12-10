@@ -65,6 +65,10 @@ export class ModalLoginPage {
       });
   } 
 
+  changePassWord()
+  {
+
+  }
 
   presentConfirm() {
     let alert = this.alertCtrl.create({
