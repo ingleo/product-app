@@ -41,7 +41,8 @@ export class Home {
             this.userSigned.cookie = res['cookie'] == null ? '' : res['cookie'];
         } else 
         {
-            console.log('redireccionando a options')
+            console.log('redireccionando a options');
+            this.navCtrl.pop();
             this.navCtrl.push(OptionsPage);
 
         }

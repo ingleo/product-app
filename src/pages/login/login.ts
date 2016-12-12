@@ -6,6 +6,7 @@ import { UserService } from "../../providers/user-service";
 
 import { Storage } from '@ionic/storage';
 
+import { OptionsPage } from '../options/options';
 import { Home } from '../home/home';
 
 import {
@@ -45,6 +46,7 @@ export class ModalLoginPage {
 
   dismiss() {
     this.viewCtrl.dismiss();
+    this.navCtrl.push(OptionsPage);
   }
 
   login(): void {
@@ -60,7 +62,8 @@ export class ModalLoginPage {
 
           this.storage.set("userSigned", this.userSigned);
 
-          this.dismiss();
+          //this.dismiss();
+          this.navCtrl.pop();
           this.navCtrl.push(Home);                   
       });
   } 
