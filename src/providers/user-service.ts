@@ -38,6 +38,17 @@ export class UserService {
             .catch(this.handleError);
     }
 
+    chgPassword(email: string, pass: string): Observable<User> {
+        return this.http
+            .post(this.usersURI + '/forgot-password/' + email, 
+                  JSON.stringify({ password: pass }), 
+                  { headers: this.headers })
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+
+
+
 	update(user: User): Observable<User> {
 	    const url = `${this.usersURI}/update/${user.email}`;
 	    return this.http
