@@ -50,6 +50,7 @@ export class ModalRegisterPage {
           this.userSigned.cookie = this.userNew.cookie;
 
           this.storage.set("userSigned", this.userSigned);
+          this.navCtrl.pop();
           this.navCtrl.push(Home);
 	    });
   }
@@ -91,6 +92,7 @@ export class ModalRegisterPage {
   }
 
   dismiss() {
+    this.navCtrl.push(OptionsPage);
     this.viewCtrl.dismiss();
   }
 
