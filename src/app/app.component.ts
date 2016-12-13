@@ -55,6 +55,7 @@ export class MyApp {
     this.storage.set("cookie", null);
     this.storage.set("email", null);
     this.storage.set("userSigned", null);
+    this.nav.setRoot(OptionsPage);
     //this.openPage(this.pageHome);
     //TODO implementación para cerrar sesión
    // alert('se cierrra la sesión');
