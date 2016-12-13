@@ -1,13 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, AlertController} from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
-
-
 import { Home } from '../pages/home/home';
 import { ProfileDetail } from '../pages/profile_detail/profile_detail';
 import { OptionsPage } from '../pages/options/options';
 import { EditProfilePage } from '../pages/edit_profile/edit_profile';
 import { CreateProductPage } from '../pages/create-product/create-product';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -22,7 +21,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, public storage: Storage, public alertCtrl: AlertController) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -49,7 +48,26 @@ export class MyApp {
   }
 
   closeSession(){
-    //TODO implementación para cerrar sesión
-    alert('se cierrra la sesión');
+    let confirm = this.alertCtrl.create({
+      title: 'Cerrar sesión',
+      message: '¿Desea cerrar sesión?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Si',
+          handler: () => {
+            console.log('Agree clicked');
+            this.storage.remove("userSigned");
+            this.nav.setRoot(this.rootPage);
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 }

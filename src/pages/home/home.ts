@@ -15,41 +15,41 @@ import { Storage } from '@ionic/storage';
 })
 export class Home {
 
-  private userSigned : any = { email: '', cookie: ''};
+  private userSigned: any = { email: '', cookie: '' };
 
 
   products: Product[];
   createProductPage = CreateProductPage;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              private productService: ProductService,
-              public storage: Storage) 
-  {
+    public navParams: NavParams,
+    private productService: ProductService,
+    public storage: Storage) {
 
   }
 
-  ngOnInit()
-  {
+  ngOnInit() {
     console.log('inicio')
-      this.storage.get("userSigned").then(res => {
-        console.log(res);
 
-        if (res != null)
-        {
-            this.userSigned.email = res['email'] == null ? '' : res['email']; 
+    this.getCookieSession();
+    /*
+        this.storage.get("userSigned").then(res => {
+          console.log(res);
+    
+          if (res != null) {
+            this.userSigned.email = res['email'] == null ? '' : res['email'];
             this.userSigned.cookie = res['cookie'] == null ? '' : res['cookie'];
-        } else 
-        {
+          } else {
             console.log('redireccionando a options');
             this.navCtrl.pop();
             this.navCtrl.push(OptionsPage);
-
-        }
-
-      }).catch((error) => {
-        console.log('Error getting user signed', error);
-      });
+    
+          }
+    
+        }).catch((error) => {
+          console.log('Error getting user signed', error);
+        });
+    */
   }
 
   ionViewWillEnter() {
@@ -59,8 +59,8 @@ export class Home {
   delete(product: Product): void {
     this.productService.deleteProduct(product)
       .subscribe(
-        response => {console.log(response);this.getProducts()},
-        err => { console.log(err)});
+      response => { console.log(response); this.getProducts() },
+      err => { console.log(err) });
     //setTimeout(this.getCookieSession(), 2000);
 
     this.getCookieSession();
@@ -70,29 +70,21 @@ export class Home {
   }
 
 
-  getCookieSession()
-  {
+  getCookieSession() {
     this.storage.get("userSigned").then(res => {
+      console.log(res);
 
-     
-          console.log(res);
-
-          if (res != null)
-          {
-              this.userSigned.email = res['email'] == null ? '' : res['email']; 
-              this.userSigned.cookie = res['cookie'] == null ? '' : res['cookie'];
-          } else 
-          {
-              console.log('redireccionando a options')
-              this.navCtrl.push(OptionsPage);
-
-          }
-     
-
+      if (res != null) {
+        this.userSigned.email = res['email'] == null ? '' : res['email'];
+        this.userSigned.cookie = res['cookie'] == null ? '' : res['cookie'];
+      } else {
+        console.log('redireccionando a options')
+        this.navCtrl.pop();
+        this.navCtrl.push(OptionsPage);
+      }
     }).catch((error) => {
       console.log('Error getting user signed', error);
     });
-
   }
 
 
@@ -102,7 +94,6 @@ export class Home {
       products => {
         this.products = products;
       },
-
       error => {
         console.log(error);
       }

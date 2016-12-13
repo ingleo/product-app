@@ -7,6 +7,8 @@ import { ModalLoginPage } from '../login/login';
 
 import { FormBuilder, FormGroup, FormControl, Validators, Validator } from '@angular/forms';
 
+import { CustomValidators } from '../../validators/custom-validator';
+
 @Component({
   selector: 'page-forgot-password',
   templateUrl: 'forgot-password.html'
@@ -35,19 +37,10 @@ export class ForgotPasswordPage {
   }
 
   changePassword(): void {
-	this.userService.chgPassword(this.email, this.password)
+	this.userService.chgPassword(this.userForm.value.email, this.userForm.value.password)
       .subscribe(user => {
-          
+        
           console.log(user.cookie);
-
-          //this.userdbService.create(this.userNew);
-
-          //this.userSigned.email = user.email;
-          //this.userSigned.cookie = user.cookie;
-
-          //this.storage.set("userSigned", this.userSigned);
-
-          //this.dismiss();
           this.navCtrl.pop();
           this.navCtrl.push(ModalLoginPage);    
       });
@@ -80,7 +73,7 @@ export class ForgotPasswordPage {
   changePassUserForm()
   {
   	return this.formBuilder.group({
-      email: ['', [Validators.required, Validators.minLength(6)/*, CustomValidators.emailValidator*/]],
+      email: ['', [Validators.required, Validators.minLength(6),CustomValidators.emailValidator]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });  	
   }
