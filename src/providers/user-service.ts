@@ -22,8 +22,8 @@ export class UserService {
 
     sigin(email: string, pass: string): Observable<User> {
         return this.http
-            .post(this.usersURI + '/sign-in', 
-                  JSON.stringify({ email: email, password: pass }), 
+            .post(this.usersURI + '/sign-in',
+                  JSON.stringify({ email: email, password: pass }),
                   { headers: this.headers })
             .map(res => res.json())
             .catch(this.handleError);
@@ -31,8 +31,8 @@ export class UserService {
 
 	create(user: User): Observable<User> {
         return this.http
-            .post(this.usersURI + '/sign-up', 
-                  JSON.stringify(user), 
+            .post(this.usersURI + '/sign-up',
+                  JSON.stringify(user),
                   { headers: this.headers })
             .map(res => res.json())
             .catch(this.handleError);
@@ -40,8 +40,8 @@ export class UserService {
 
     chgPassword(email: string, pass: string): Observable<User> {
         return this.http
-            .post(this.usersURI + '/forgot-password/' + email, 
-                  JSON.stringify({ password: pass }), 
+            .post(this.usersURI + '/forgot-password/' + email,
+                  JSON.stringify({ password: pass }),
                   { headers: this.headers })
             .map(res => res.json())
             .catch(this.handleError);
