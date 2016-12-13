@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { ViewController, NavController, AlertController } from 'ionic-angular';
+import { ViewController, NavController } from 'ionic-angular';
 
 //import { User } from '../../model/user';
 import { UserService } from "../../providers/user-service";
 
 import { Storage } from '@ionic/storage';
 
+import { OptionsPage } from '../options/options';
+import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { Home } from '../home/home';
 
 import {
@@ -31,7 +33,6 @@ export class ModalLoginPage {
 
   constructor(public viewCtrl: ViewController
     , private userService: UserService
-    , private alertCtrl: AlertController
     , private formBuilder: FormBuilder
     , public storage: Storage
     , public navCtrl: NavController) 
@@ -45,6 +46,7 @@ export class ModalLoginPage {
 
   dismiss() {
     this.viewCtrl.dismiss();
+    this.navCtrl.push(OptionsPage);
   }
 
   login(): void {
@@ -60,34 +62,16 @@ export class ModalLoginPage {
 
           this.storage.set("userSigned", this.userSigned);
 
-          this.dismiss();
+          //this.dismiss();
+          this.navCtrl.pop();
           this.navCtrl.push(Home);                   
       });
   } 
 
-
-  presentConfirm() {
-    let alert = this.alertCtrl.create({
-      title: '¡Hola !',
-      message: '¡Confirma y Bienvenido!',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => {
-            console.log('Click en cancelar');
-          }
-        },
-        {
-          text: 'Aceptar',
-          handler: () => {
-            this.login();
-            console.log('Click en aceptar');
-          }
-        }
-      ]
-    });
-    alert.present();
+  changePassWord()
+  {
+    this.viewCtrl.dismiss();
+    this.navCtrl.push(ForgotPasswordPage);
   }
 
   private loginUserForm() {
