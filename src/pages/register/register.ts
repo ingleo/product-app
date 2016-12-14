@@ -94,7 +94,7 @@ export class ModalRegisterPage {
       password: ['', [Validators.required, Validators.minLength(6)]],
       firstname: ['', [Validators.required, Validators.minLength(3)]],
       lastname: ['', [Validators.required, Validators.minLength(3)]],
-      phone: ['', [Validators.required, Validators.minLength(10)]],
+      phone: ['', [Validators.required, Validators.minLength(10), CustomValidators.numericValidator]],
     });
   }
 

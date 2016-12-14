@@ -17,7 +17,7 @@ import { Home } from '../home/home';
 })
 export class ProductDetailPage {
 
-  productArray: Product[];
+  productArray: Product;
   product: Product;
   id: number;
   productForm: FormGroup;
@@ -35,7 +35,10 @@ export class ProductDetailPage {
   getProductDetail(id: number) {
     this.productService.getProductDetail(id)
       .subscribe(
-      response => { console.log(response); this.productArray = response; },
+      response => {
+        console.log(response);
+        this.productArray = response;
+      },
       err => { console.log(err) });
     //console.log(typeof this.product);
   }
@@ -45,7 +48,7 @@ export class ProductDetailPage {
       .subscribe(
       response => {
         console.log(response)
-        this.navCtrl.push(Home);
+        this.navCtrl.pop();
       },
       err => { console.log(err) });
   }
@@ -56,6 +59,8 @@ export class ProductDetailPage {
       type: ['', [Validators.required, Validators.minLength(6)]],
       quantity: ['', [Validators.required, Validators.minLength(1)]],
       price: ['', [Validators.required, Validators.minLength(5)]],
+      latitude: ['', []],
+      longitude: ['', []]
     });
   }
 

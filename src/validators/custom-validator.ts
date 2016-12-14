@@ -18,4 +18,13 @@ export class CustomValidators {
       return { 'invalidEmailAddress': true };
     }
   }
+
+  public static numericValidator(controlTwo: AbstractControl) {
+    console.log('numeric validator');
+    if (controlTwo.value.match(/^(0|[1-9][0-9]*)$/)) {
+      return null;
+    } else {
+      return { 'invalidNumericField': true };
+    }
+  }
 } 

@@ -60,7 +60,7 @@ export class EditProfilePage {
     return this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.minLength(6), CustomValidators.emailValidator]],
+      email: ['', [Validators.required, Validators.minLength(6)]],
       phone: ['', [Validators.required, Validators.minLength(10)]],
     });
   }
