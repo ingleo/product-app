@@ -10,7 +10,6 @@ import { Home } from '../pages/home/home';
 import { OptionsPage } from '../pages/options/options';
 import { ProductDetailPage } from '../pages/product-detail/product-detail';
 
-
 import { ModalRegisterPage } from "../pages/register/register";
 import { ModalLoginPage } from "../pages/login/login";
 import { ForgotPasswordPage } from "../pages/forgot-password/forgot-password";
@@ -20,8 +19,6 @@ import { EditProfilePage } from '../pages/edit_profile/edit_profile';
 
 import { CreateProductPage } from '../pages/create-product/create-product';
 import { Storage } from '@ionic/storage';
-
-
 
 @NgModule({
   declarations: [

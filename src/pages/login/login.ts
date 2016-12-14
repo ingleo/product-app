@@ -10,6 +10,8 @@ import { OptionsPage } from '../options/options';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { Home } from '../home/home';
 
+import { CustomValidators } from '../../validators/custom-validator';
+
 import {
   FormBuilder,
   FormGroup,
@@ -50,18 +52,17 @@ export class ModalLoginPage {
   }
 
   login(): void {
-    this.userService.sigin(this.email, this.password)
+    this.userService.sigin(this.userForm.value.email, this.userForm.value.password)
       .subscribe(user => {
           
           console.log(user.cookie);
 
           //this.userdbService.create(this.userNew);
 
-          this.userSigned.email = user.email;
-          this.userSigned.cookie = user.cookie;
+          this.userSigned.email = user['email'];
+          this.userSigned.cookie = user['cookie'];
 
           this.storage.set("userSigned", this.userSigned);
-
           //this.dismiss();
           this.navCtrl.pop();
           this.navCtrl.push(Home);                   
@@ -76,7 +77,7 @@ export class ModalLoginPage {
 
   private loginUserForm() {
     return this.formBuilder.group({
-      email: ['', [Validators.required, Validators.minLength(6)/*, CustomValidators.emailValidator*/]],
+      email: ['', [Validators.required, Validators.minLength(6), CustomValidators.emailValidator]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
