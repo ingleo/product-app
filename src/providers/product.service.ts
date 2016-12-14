@@ -27,7 +27,7 @@ export class ProductService {
   }
 
 
-  getProductDetail(id : number): Observable<Product[]> {
+  getProductDetail(id : number): Observable<Product> {
     return this.http.get(this.productsURI+'detail/'+id)
       .map(response => response.json() as Product[])
       .catch(this.handleError);
