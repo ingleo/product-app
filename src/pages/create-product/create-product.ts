@@ -20,15 +20,7 @@ export class CreateProductPage {
   productForm: FormGroup;
   lat: number;
   lng: number;
-  product: Product = {
-    id: 0,
-    name: '',
-    type: '',
-    quantity: 0,
-    price: 0,
-    latitude : 0,
-    longitude : 0,
-}
+  product = new Product();
 
 
   constructor(public navCtrl: NavController, public formBuilder: FormBuilder, private productService: ProductService) {

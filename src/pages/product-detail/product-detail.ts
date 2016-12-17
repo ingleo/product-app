@@ -25,7 +25,8 @@ export class ProductDetailPage {
 
   constructor(public navParams: NavParams,
     private productService: ProductService,
-    public navCtrl: NavController, public formBuilder: FormBuilder) {
+    public navCtrl: NavController, 
+    public formBuilder: FormBuilder) {
     this.id = navParams.get('p');
     this.getProductDetail(this.id);
     this.productForm = this.createProductForm();
@@ -38,6 +39,7 @@ export class ProductDetailPage {
       response => {
         console.log(response);
         this.productArray = response;
+        
       },
       err => { console.log(err) });
     //console.log(typeof this.product);
