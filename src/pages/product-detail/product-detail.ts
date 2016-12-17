@@ -43,11 +43,10 @@ export class ProductDetailPage {
       response => {
         console.log(response);
         this.productArray = response;
-<<<<<<< HEAD
-=======
+
         this.aux1price = this.productArray.price.toString();
         this.aux2quantity = this.productArray.price.toString();
->>>>>>> fa35994bdeb3a1523e8aa8dff11f134b05279974
+
 
       },
       err => { console.log(err) });
