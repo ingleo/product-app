@@ -21,6 +21,8 @@ export class ProductDetailPage {
   product: Product;
   id: number;
   productForm: FormGroup;
+  aux1price: string;
+  aux2quantity: string;
 
 
   constructor(public navParams: NavParams,
@@ -39,13 +41,18 @@ export class ProductDetailPage {
       response => {
         console.log(response);
         this.productArray = response;
-        
+        this.aux1price = this.productArray.price.toString();
+        this.aux2quantity = this.productArray.price.toString();
+
       },
       err => { console.log(err) });
     //console.log(typeof this.product);
   }
 
   save(product: Product): void {
+
+    product.price = Number(this.aux1price);
+    product.quantity = Number(this.aux2quantity);
     this.productService.update(product)
       .subscribe(
       response => {
@@ -59,8 +66,8 @@ export class ProductDetailPage {
     return this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
       type: ['', [Validators.required, Validators.minLength(6)]],
-      quantity: ['', [Validators.required, Validators.minLength(1)]],
-      price: ['', [Validators.required, Validators.minLength(5)]],
+      quantity: ['', [Validators.required, Validators.minLength(1), Validators.pattern('^(0|[1-9][0-9]*)$')]],
+      price: ['', [Validators.required, Validators.minLength(5), Validators.pattern('^(0|[1-9][0-9]*)$')]],
       latitude: ['', []],
       longitude: ['', []]
     });
