@@ -7,13 +7,13 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content  padding class="getstart">
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
-  <ion-list no-border>
-    <ion-item *ngFor="let product of products" [class.pepito]="product === selected">
+  <ion-list no-border  padding class="getstart">
+    <ion-item *ngFor="let product of products" [class.pepito]="product === selected"  padding class="getstart">
       <button ion-button color="light" item-left (click)="onSelect(product.id)">
         <ion-icon ios="ios-phone-portrait" md="md-phone-portrait"></ion-icon>
       </button>
