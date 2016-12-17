@@ -36,6 +36,14 @@
           <ion-label>Price:</ion-label>
           <ion-input formControlName="price" [(ngModel)]="productArray.price" type="text" ></ion-input>
         </ion-item>
+        <ion-item>
+          <ion-label>Latitude:</ion-label>
+          <ion-input formControlName="latitude" [(ngModel)]="productArray.latitude" type="text" disabled></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Longitude:</ion-label>
+          <ion-input formControlName="longitude" [(ngModel)]="productArray.longitude" type="text" disabled></ion-input>
+        </ion-item>
       </ion-list>
       <div padding>
         <button ion-button block type="submit" [disabled]="!productForm.valid">Save</button>

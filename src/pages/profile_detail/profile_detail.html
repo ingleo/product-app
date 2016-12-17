@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-card>
-    <ion-card-header>Nombres</ion-card-header>
+    <ion-card-header>Nombre</ion-card-header>
     <ion-card-content>{{user.firstname}} {{user.lastname}}</ion-card-content>
   </ion-card>
 
@@ -23,9 +23,10 @@
     <ion-card-content>{{user.phone}}</ion-card-content>
   </ion-card>
 
-  <button ion-button full (click)="editProfile()">Editar perfil</button>
-  <button ion-button full (click)="showConfirm()">Cerrar sesión</button>
-  <button ion-button full color="danger" (click)="showConfirm2()">Eliminar Usuario</button>
-  
-  
+  <button ion-button round block small (click)="editProfile()">Edit Profile</button>
+  <button ion-button round block small (click)="changePassword()">Change Password</button>
+  <button ion-button clear color="danger" (click)="showConfirm()">Close Session</button>
+  <button ion-button clear color="danger" (click)="showConfirm2()">Delete User</button>
+
+
 </ion-content>

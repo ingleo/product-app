@@ -7,6 +7,7 @@ import { EditProfilePage } from '../edit_profile/edit_profile';
 import { Home } from '../home/home';
 import { OptionsPage } from '../options/options';
 import { Storage } from '@ionic/storage';
+import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 
 @Component({
   selector: 'page-page2',
@@ -16,66 +17,39 @@ import { Storage } from '@ionic/storage';
 export class ProfileDetail {
 
   //users: User[];
-  private userSigned : any = { email: '', cookie: ''};
-  user: User = {
-          id: 0,
-          email: "",
-          password: "",
-          firstname: "",
-          lastname: "",
-          phone: "",
-          cookie: ""
-        };
-  /*
-  public user: User = {
-          id: 1,
-          email: "doggie@gmail.com",
-          password: "admin123456",
-          firstname: "aaaaaaaaaa",
-          lastname: "bbbbbbbbbbbbbb",
-          phone: "1111111",
-          cookie: "2020202020202"
-        };
-  */
+  private userSigned: any = { email: '', cookie: '' };
+  user = new User();
+
   constructor(
     public navCtrl: NavController,
-    private userService: UserService, 
+    private userService: UserService,
     public alertCtrl: AlertController,
-    public storage: Storage) {}
-  
-  ngOnInit():void{
-      this.storage.get("userSigned").then(res =>{
-        console.log(res);
-        if (res != null)
-        {
-            this.userSigned.email = res['email'] == null ? '' : res['email']; 
-            this.userSigned.cookie = res['cookie'] == null ? '' : res['cookie'];
-            this.user.email = this.userSigned.email;
-            this.userService.getUser(this.user)
-            .subscribe(
-            user => {
-              
-              this.user = user;
-            },
-            error => {
-              console.log(error);
-            });
+    public storage: Storage) { }
 
+ionViewWillEnter() {
+    this.storage.get("userSigned").then(res => {
+      console.log(res);
+      if (res != null) {
+        this.userSigned.email = res['email'] == null ? '' : res['email'];
+        this.userSigned.cookie = res['cookie'] == null ? '' : res['cookie'];
+        this.user.email = this.userSigned.email;
+        this.userService.getUser(this.user)
+          .subscribe(
+          user => {
+            this.user = user;
+          },
+          error => {
+            console.log(error);
+          });
+      } else {
+        console.log('redireccionando a options')
+        this.navCtrl.push(OptionsPage);
+      }
+    })
+  }
 
-        } else 
-        {
-            console.log('redireccionando a options')
-            this.navCtrl.push(OptionsPage);
-
-        }
-
-      })
-
-    }
-
-
-    /************Cerrar Sesion:***************/
-    showConfirm() {
+  /************Cerrar Sesion:***************/
+  showConfirm() {
     let confirm = this.alertCtrl.create({
       title: 'Cerrar sesión',
       message: '¿Desea cerrar sesión?',
@@ -90,6 +64,8 @@ export class ProfileDetail {
           text: 'Si',
           handler: () => {
             console.log('Agree clicked');
+            this.storage.remove("userSigned");
+            this.navCtrl.setRoot(Home);
           }
         }
       ]
@@ -98,7 +74,7 @@ export class ProfileDetail {
   }
 
   /************Eliminar Usuario:***************/
-    showConfirm2() {
+  showConfirm2() {
     let confirm = this.alertCtrl.create({
       title: 'Eliminar',
       message: '¿Desea Borrar su usuario?',
@@ -112,9 +88,11 @@ export class ProfileDetail {
         {
           text: 'Si',
           handler: () => {
-            this.userService.remove(this.userSigned).subscribe(res => {
+            this.userService.remove(this.user).subscribe(res => {
               console.log('se ha borrado el usuario');
-              this.navCtrl.push(Home);
+              this.storage.remove("userSigned");
+              this.navCtrl.pop();
+              this.navCtrl.setRoot(Home);
             });
           }
         }
@@ -124,7 +102,12 @@ export class ProfileDetail {
   }
 
   editProfile() {
-    this.navCtrl.push(EditProfilePage);
+    this.navCtrl.push(EditProfilePage, {p: this.user.email});
   }
-  
+
+  changePassword() {
+    this.navCtrl.pop();
+    this.navCtrl.push(ForgotPasswordPage);
+  }
+
 }

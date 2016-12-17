@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Product } from '../../model/product';
 import { ProductService } from "../../providers/product.service";
 import { ProductDetailPage } from '../product-detail/product-detail';
@@ -7,6 +7,7 @@ import { CreateProductPage } from '../create-product/create-product';
 
 import { OptionsPage } from '../options/options';
 import { Storage } from '@ionic/storage';
+import { Network } from 'ionic-native';
 
 
 @Component({
@@ -15,52 +16,32 @@ import { Storage } from '@ionic/storage';
 })
 export class Home {
 
-  private userSigned : any = { email: '', cookie: ''};
-
+  private userSigned: any = { email: '', cookie: '' };
+  public network: string;
 
   products: Product[];
   createProductPage = CreateProductPage;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              private productService: ProductService,
-              public storage: Storage) 
-  {
+    public navParams: NavParams,
+    private productService: ProductService,
+    public storage: Storage,
+    public alertCtrl: AlertController) { }
 
-  }
-
-  ngOnInit()
-  {
+  ngOnInit() {
     console.log('inicio')
-      this.storage.get("userSigned").then(res => {
-        console.log(res);
-
-        if (res != null)
-        {
-            this.userSigned.email = res['email'] == null ? '' : res['email']; 
-            this.userSigned.cookie = res['cookie'] == null ? '' : res['cookie'];
-        } else 
-        {
-            console.log('redireccionando a options');
-            this.navCtrl.pop();
-            this.navCtrl.push(OptionsPage);
-
-        }
-
-      }).catch((error) => {
-        console.log('Error getting user signed', error);
-      });
-  }
-
-  ionViewWillEnter() {
-    this.getProducts();
+    Network.onConnect().subscribe(() => {
+      this.network = Network.connection;
+    });
+      
+    this.getCookieSession();
   }
 
   delete(product: Product): void {
     this.productService.deleteProduct(product)
       .subscribe(
-        response => {console.log(response);this.getProducts()},
-        err => { console.log(err)});
+      response => { console.log(response); this.getProducts() },
+      err => { console.log(err) });
     //setTimeout(this.getCookieSession(), 2000);
 
     this.getCookieSession();
@@ -69,32 +50,23 @@ export class Home {
     this.getProducts();
   }
 
-
-  getCookieSession()
-  {
+  getCookieSession() {
     this.storage.get("userSigned").then(res => {
+      console.log(res);
 
-     
-          console.log(res);
-
-          if (res != null)
-          {
-              this.userSigned.email = res['email'] == null ? '' : res['email']; 
-              this.userSigned.cookie = res['cookie'] == null ? '' : res['cookie'];
-          } else 
-          {
-              console.log('redireccionando a options')
-              this.navCtrl.push(OptionsPage);
-
-          }
-     
-
+      if (res != null) {
+        this.userSigned.email = res['email'] == null ? '' : res['email'];
+        this.userSigned.cookie = res['cookie'] == null ? '' : res['cookie'];
+        this.getProducts();
+      } else {
+        console.log('redireccionando a options')
+        this.navCtrl.pop();
+        this.navCtrl.push(OptionsPage);
+      }
     }).catch((error) => {
       console.log('Error getting user signed', error);
     });
-
   }
-
 
   getProducts() {
     this.productService.getProducts()
@@ -102,7 +74,6 @@ export class Home {
       products => {
         this.products = products;
       },
-
       error => {
         console.log(error);
       }
@@ -122,5 +93,26 @@ export class Home {
     this.navCtrl.push(ProductDetailPage, { p: id });
   }
 
-
+  showConfirm(product: Product) {
+    let confirm = this.alertCtrl.create({
+      title: 'Eliminar',
+      message: '¿Desea Eliminar Producto?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Si',
+          handler: () => {
+            console.log('Agree clicked');
+            this.delete(product);
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
 }

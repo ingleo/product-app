@@ -17,8 +17,8 @@
       <button ion-button color="light" item-left (click)="onSelect(product.id)">
         <ion-icon ios="ios-phone-portrait" md="md-phone-portrait"></ion-icon>
       </button>
-      <span>{{product.id}}</span> {{product.name}}
-      <button ion-button color="dark" item-right (click)="delete(product)">
+      <span>{{product.id}}</span> > {{product.name}}
+      <button ion-button color="dark" item-right (click)="showConfirm(product)">
         <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
       </button>
     </ion-item>

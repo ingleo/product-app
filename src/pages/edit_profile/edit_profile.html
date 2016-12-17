@@ -4,29 +4,29 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-   <form [formGroup]="userForm" (ngSubmit)="saveUser()" novalidate>
+  <form [formGroup]="userForm" (ngSubmit)="showConfirm()" novalidate>
     <ion-list>
       <ion-item>
-        <ion-icon name="person" item-left></ion-icon>
+        <ion-icon name="contact" item-left></ion-icon>
         <ion-label stacked>Nombres:</ion-label>
-        <ion-input formControlName="name" type="text" placeholder="Nombre" value="{{user.firstname}}"></ion-input>
+        <ion-input formControlName="name" [(ngModel)]="user.firstname" type="text" placeholder="Nombres"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-icon name="start" item-left></ion-icon>
+        <ion-icon name="person" item-left></ion-icon>
         <ion-label stacked>Apellidos:</ion-label>
-        <ion-input formControlName="lastName" type="text" placeholder="Apellidos" value="{{user.lastname}}" ></ion-input>
+        <ion-input formControlName="lastName" [(ngModel)]="user.lastname" type="text" placeholder="Apellidos"></ion-input>
       </ion-item>
       <ion-item>
         <ion-icon name="mail" item-left></ion-icon>
         <ion-label stacked>Correo electronico:</ion-label>
-        <ion-input formControlName="email" type="email" placeholder="Email" value="{{user.email}}"></ion-input>
+        <ion-input formControlName="email" [(ngModel)]="user.email" type="text" placeholder="Email" disabled></ion-input>
       </ion-item>
       <ion-item>
         <ion-icon name="call" item-left></ion-icon>
         <ion-label stacked>Teléfono:</ion-label>
-        <ion-input formControlName="phone" type="text" placeholder="Teléfono" value="{{user.phone}}"></ion-input>
+        <ion-input formControlName="phone" [(ngModel)]="user.phone" type="text" placeholder="Teléfono"></ion-input>
       </ion-item>
-      
+
     </ion-list>
     <div padding>
       <button ion-button block type="submit" [disabled]="!userForm.valid">Guardar</button>

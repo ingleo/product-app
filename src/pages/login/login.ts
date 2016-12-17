@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, NavController } from 'ionic-angular';
+import { ViewController, NavController, AlertController } from 'ionic-angular';
 
 //import { User } from '../../model/user';
 import { UserService } from "../../providers/user-service";
@@ -10,13 +10,9 @@ import { OptionsPage } from '../options/options';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { Home } from '../home/home';
 
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-  Validator
-} from '@angular/forms';
+import { CustomValidators } from '../../validators/custom-validator';
+
+import { FormBuilder, FormGroup, FormControl, Validators, Validator } from '@angular/forms';
 
 
 @Component({
@@ -25,22 +21,22 @@ import {
 })
 export class ModalLoginPage {
 
-	private userSigned : any = { email: '', cookie: ''};
+  private userSigned: any = { email: '', cookie: '' };
   userForm: FormGroup;
-  email : string;
-  password : string; 
-
+  email: string;
+  password: string;
+  network: string;
 
   constructor(public viewCtrl: ViewController
     , private userService: UserService
     , private formBuilder: FormBuilder
     , public storage: Storage
-    , public navCtrl: NavController) 
-  {
-     this.userForm = this.loginUserForm();
+    , public navCtrl: NavController
+    , private alertCtrl: AlertController) {
+    this.userForm = this.loginUserForm();
   }
 
-  ionViewDidLoad() {
+  ngOnInit() {
     console.log('Hello LoginPage Page');
   }
 
@@ -50,35 +46,55 @@ export class ModalLoginPage {
   }
 
   login(): void {
-    this.userService.sigin(this.email, this.password)
+    this.userService.sigin(this.userForm.value.email, this.userForm.value.password)
       .subscribe(user => {
-          
-          console.log(user.cookie);
 
-          //this.userdbService.create(this.userNew);
+        console.log(user.cookie);
 
-          this.userSigned.email = user.email;
-          this.userSigned.cookie = user.cookie;
+        //this.userdbService.create(this.userNew);
+        if (typeof user['email'] === "undefined" || typeof user['cookie'] === "undefined") {
+          this.presentConfirm();
+        }
+        else {
+          this.userSigned.email = user['email'];
+          this.userSigned.cookie = user['cookie'];
 
           this.storage.set("userSigned", this.userSigned);
-
           //this.dismiss();
           this.navCtrl.pop();
-          this.navCtrl.push(Home);                   
+          this.navCtrl.push(Home);
+        }
       });
-  } 
+  }
 
-  changePassWord()
-  {
+  changePassWord() {
     this.viewCtrl.dismiss();
     this.navCtrl.push(ForgotPasswordPage);
   }
 
   private loginUserForm() {
     return this.formBuilder.group({
-      email: ['', [Validators.required, Validators.minLength(6)/*, CustomValidators.emailValidator*/]],
+      email: ['', [Validators.required, Validators.minLength(6), CustomValidators.emailValidator]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+  }
+
+  presentConfirm() {
+    let alert = this.alertCtrl.create({
+      title: '¡Error !',
+      message: 'Datos incorrectos',
+      buttons: [
+        {
+          text: 'Aceptar',
+          handler: () => {
+            //this.dismiss();
+            this.userForm.reset({ email: '', password: '' });
+            console.log('Click en aceptar');
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }

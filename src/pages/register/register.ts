@@ -39,6 +39,13 @@ export class ModalRegisterPage {
   }
 
   add(): void {
+
+    this.userNew.email = this.userForm.value.email;
+    this.userNew.password = this.userForm.value.password;
+    this.userNew.firstname = this.userForm.value.firstname;
+    this.userNew.lastname = this.userForm.value.lastname;
+    this.userNew.phone = this.userForm.value.phone;
+
 	  this.userService.create(this.userNew)
 	    .subscribe(user => {
 	        this.userNew.cookie = user.cookie;
@@ -83,11 +90,11 @@ export class ModalRegisterPage {
 
   private createUserForm() {
     return this.formBuilder.group({
-      email: ['', [Validators.required, Validators.minLength(6)/*, CustomValidators.emailValidator*/]],
+      email: ['', [Validators.required, Validators.minLength(6), CustomValidators.emailValidator]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       firstname: ['', [Validators.required, Validators.minLength(3)]],
       lastname: ['', [Validators.required, Validators.minLength(3)]],
-      phone: ['', [Validators.required, Validators.minLength(10)]],
+      phone: ['', [Validators.required, Validators.minLength(10), CustomValidators.numericValidator]],
     });
   }
 
