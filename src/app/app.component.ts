@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, AlertController} from 'ionic-angular';
+import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { Home } from '../pages/home/home';
 import { ProfileDetail } from '../pages/profile_detail/profile_detail';
@@ -19,7 +19,7 @@ export class MyApp {
 
   rootPage: any = Home;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform, public storage: Storage, public alertCtrl: AlertController) {
     this.initializeApp();
@@ -27,7 +27,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: Home },
-      { title: 'Profile', component: ProfileDetail}
+      { title: 'Profile', component: ProfileDetail }
     ];
 
   }
@@ -39,6 +39,16 @@ export class MyApp {
       StatusBar.styleDefault();
       //habilitar icono
       Splashscreen.show();
+
+      var notificationOpenedCallback = function (jsonData) {
+        console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+      };
+
+      window["plugins"].OneSignal
+        .startInit("5b92966e-bee6-4d11-9d32-91f5af8f8ff5", "609350027543")
+        .handleNotificationOpened(notificationOpenedCallback)
+        .endInit();
+
       Splashscreen.hide();
     });
   }
@@ -49,7 +59,7 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
 
-  closeSession(){
+  closeSession() {
     let confirm = this.alertCtrl.create({
       title: 'Cerrar sesión',
       message: '¿Desea cerrar sesión?',
