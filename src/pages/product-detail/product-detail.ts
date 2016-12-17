@@ -3,7 +3,7 @@ import { Product } from '../../model/product';
 import { NavParams } from 'ionic-angular';
 
 import { ProductService } from "../../providers/product.service";
-import { NavController } from 'ionic-angular';
+import { NavController,AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Home } from '../home/home';
@@ -26,10 +26,9 @@ export class ProductDetailPage {
 
 
   constructor(public navParams: NavParams,
-
     private productService: ProductService,
     public navCtrl: NavController,
-    public formBuilder: FormBuilder) {
+    public formBuilder: FormBuilder,private alertCtrl: AlertController) {
     this.id = navParams.get('p');
     this.getProductDetail(this.id);
     this.productForm = this.createProductForm();
@@ -95,7 +94,6 @@ export class ProductDetailPage {
       price: ['', [Validators.required, Validators.minLength(5)]],
       latitude: ['', []],
       longitude: ['', []]
-
     });
   }
 
